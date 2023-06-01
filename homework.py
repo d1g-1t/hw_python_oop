@@ -24,7 +24,7 @@ class InfoMessage:
             f"Ср. скорость: {self.speed:.3f} км/ч. "
             f"Потрачено ккал: {self.calories:.3f}."
         )
-        return message
+        return str(message)
 
 
 class Training:
