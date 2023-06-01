@@ -138,7 +138,7 @@ class Swimming(Training):
     # средней скорости со значением `1.1`
     MEAN_SPEED_MULTIPLIER = 2  # константа увеличения скорости движения
     LEN_STEP = Training.LEN_STROKE  # константа для расчета расстояния
-    
+
     def __init__(
         self,
         action: int,
