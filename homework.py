@@ -105,6 +105,7 @@ class SportsWalking(Training):
     # процессе сжигания каллорий при ходьбе
     KM_PER_HOUR_TO_M_PER_SEC = 0.278    # константа для перевода значений
     # из км/ч в м/с
+    CM_IN_M = 100  # константа для перевода сантиметров в метры
 
     def __init__(
         self,
@@ -120,9 +121,10 @@ class SportsWalking(Training):
     def get_spent_calories(self) -> float:
         """Получить количество затраченных калорий при спортивной ходьбе."""
         mean_speed = self.get_mean_speed() * self.KM_PER_HOUR_TO_M_PER_SEC
+        height_in_meters = self.height / self.CM_IN_M
         calories = (
             (self.CALORIES_WEIGHT_MULPIPLIER * self.weight
-                + (mean_speed ** 2 / self.height)
+                + (mean_speed ** 2 / height_in_meters)
                 * self.CALORIES_HEIGHT_MULTIPLIER * self.weight)
             * (self.duration * self.HOURS_TO_MINUTES)
         )
@@ -134,6 +136,7 @@ class Swimming(Training):
     """Тип тренировки: плавание."""
     MEAN_SPEED_INCREASE = 1.1   # константа для смещения значения
     # средней скорости со значением `1.1`
+    MEAN_SPEED_MULTIPLIER = 2  # константа увеличения скорости движения
 
     def __init__(
         self,
@@ -161,7 +164,7 @@ class Swimming(Training):
         mean_speed = self.get_mean_speed()
         calories = (
             (mean_speed + self.MEAN_SPEED_INCREASE)
-            * 2 * self.weight
+            * self.MEAN_SPEED_MULTIPLIER * self.weight
             * self.duration
         )
         return calories
