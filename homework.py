@@ -137,7 +137,8 @@ class Swimming(Training):
     MEAN_SPEED_INCREASE = 1.1   # константа для смещения значения
     # средней скорости со значением `1.1`
     MEAN_SPEED_MULTIPLIER = 2  # константа увеличения скорости движения
-
+    LEN_STEP = Training.LEN_STROKE  # константа для расчета расстояния
+    
     def __init__(
         self,
         action: int,
@@ -150,8 +151,6 @@ class Swimming(Training):
         self.length_pool = length_pool  # параметр длины бассейна в метрах
         self.count_pool = count_pool    # параметр со значением, сколько раз
         # человек переплыл бассейн за тренировку
-        self.LEN_STEP = self.LEN_STROKE  # переопределяем значение длины шага,
-        # чтобы она была равна длине гребка для расчета get_distance
 
     def get_mean_speed(self) -> float:
         """Получить среднюю скорость плавания."""
