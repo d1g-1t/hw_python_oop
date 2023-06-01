@@ -34,7 +34,7 @@ class Training:
     LEN_STROKE = 1.38   # длина одного гребка в метрах
     M_IN_KM = 1000      # константа для перевода пройденного
     # расстояния из метров в километры
-    HOURS_TO_MINUTES = 60 # программа получает время в часах
+    HOURS_TO_MINUTES = 60  # программа получает время в часах
     # добавляем константу для перевода часов в минуты
 
     def __init__(
@@ -89,9 +89,11 @@ class Running(Training):
         """Получить количество затраченных калорий при беге."""
         mean_speed = self.get_mean_speed()
         calories = (
-            self.CALORIES_MEAN_SPEED_MULTIPLIER * mean_speed
-            + self.CALORIES_MEAN_SPEED_SHIFT
-        ) * self.weight / self.M_IN_KM * (self.duration * self.HOURS_TO_MINUTES)
+            (self.CALORIES_MEAN_SPEED_MULTIPLIER * mean_speed
+            + self.CALORIES_MEAN_SPEED_SHIFT)
+            * self.weight / self.M_IN_KM
+            * (self.duration * self.HOURS_TO_MINUTES)
+        )
         return calories
 
 
@@ -101,7 +103,7 @@ class SportsWalking(Training):
     # сжигания каллорий при ходьбе
     CALORIES_HEIGHT_MULTIPLIER = 0.029  # коэффициент для учета роста в
     # процессе сжигания каллорий при ходьбе
-    KM_PER_HOUR_TO_M_PER_SEC = 0.278 # константа для перевода значений
+    KM_PER_HOUR_TO_M_PER_SEC = 0.278    # константа для перевода значений
     # из км/ч в м/с
 
     def __init__(
@@ -130,7 +132,7 @@ class SportsWalking(Training):
 
 class Swimming(Training):
     """Тип тренировки: плавание."""
-    MEAN_SPEED_INCREASE = 1.1 # константа для смещения значения
+    MEAN_SPEED_INCREASE = 1.1   # константа для смещения значения
     # средней скорости со значением `1.1`
 
     def __init__(
@@ -157,7 +159,11 @@ class Swimming(Training):
     def get_spent_calories(self) -> float:
         """Получить количество затраченных калорий при плавании."""
         mean_speed = self.get_mean_speed()
-        calories = (mean_speed + self.MEAN_SPEED_INCREASE) * 2 * self.weight * self.duration
+        calories = (
+            (mean_speed + self.MEAN_SPEED_INCREASE)
+            * 2 * self.weight 
+            * self.duration
+        )
         return calories
 
 
