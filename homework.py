@@ -24,7 +24,7 @@ class InfoMessage:
             f"Ср. скорость: {self.speed:.3f} км/ч. "
             f"Потрачено ккал: {self.calories:.3f}."
         )
-        return str(message)
+        return message
 
 
 class Training:
@@ -61,7 +61,7 @@ class Training:
     def get_spent_calories(self) -> float:
         """Получить количество затраченных калорий."""
         return 0  # в базовом классе не будет формулы расчета
-        # соженных каллорий, они будут указаны в дочерних классах
+        # соженных калорий, они будут указаны в дочерних классах
 
     def show_training_info(self) -> InfoMessage:
         """Вернуть информационное сообщение о выполненной тренировке."""
@@ -128,14 +128,13 @@ class SportsWalking(Training):
                 * self.CALORIES_HEIGHT_MULTIPLIER * self.weight)
             * (self.duration * self.HOURS_TO_MINUTES)
         )
-
         return calories
 
 
 class Swimming(Training):
     """Тип тренировки: плавание."""
     MEAN_SPEED_INCREASE = 1.1   # константа для смещения значения
-    # средней скорости со значением `1.1`
+    # средней скорости
     MEAN_SPEED_MULTIPLIER = 2  # константа увеличения скорости движения
     LEN_STEP = Training.LEN_STROKE  # константа для расчета расстояния
 
