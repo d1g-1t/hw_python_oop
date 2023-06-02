@@ -194,7 +194,7 @@ def read_package(workout_type: str, data: list) -> Training:
     return Training(action, duration, weight)
 
 
-def main(training: Training) -> None:
+def main(training: Training) -> str:
     """Главная функция."""
     info = training.show_training_info()
     print(info.get_message())
