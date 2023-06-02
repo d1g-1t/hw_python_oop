@@ -19,9 +19,9 @@ class InfoMessage:
         """Возвращает строку сообщения."""
         message = (
             f"Тип тренировки: {self.training_type}; "
-            f"Длительность: {self.duration:.3f} ч. "
+            f"Длительность: {self.duration:.3f} ч.; "
             f"Дистанция: {self.distance:.3f} км; "
-            f"Ср. скорость: {self.speed:.3f} км/ч. "
+            f"Ср. скорость: {self.speed:.3f} км/ч; "
             f"Потрачено ккал: {self.calories:.3f}."
         )
         return message
@@ -61,7 +61,7 @@ class Training:
     def get_spent_calories(self) -> float:
         """Получить количество затраченных калорий."""
         return 0  # в базовом классе не будет формулы расчета
-        # соженных калорий, они будут указаны в дочерних классах
+        # соженных калорий, формулы будут указаны в дочерних классах
 
     def show_training_info(self) -> InfoMessage:
         """Вернуть информационное сообщение о выполненной тренировке."""
@@ -80,9 +80,9 @@ class Training:
 
 class Running(Training):
     """Тип тренировки: бег."""
-    CALORIES_MEAN_SPEED_MULTIPLIER = 18  # Коэффициент учёта сожжёных каллорий
+    CALORIES_MEAN_SPEED_MULTIPLIER = 18  # коэффициент учёта сожжёных каллорий
     # в зависимости от скорости движения
-    CALORIES_MEAN_SPEED_SHIFT = 1.79     # Константа сжигаемых каллорий
+    CALORIES_MEAN_SPEED_SHIFT = 1.79     # константа сжигаемых каллорий
     # вне зависимости от скорости движения
 
     def get_spent_calories(self) -> float:
@@ -104,7 +104,7 @@ class SportsWalking(Training):
     CALORIES_HEIGHT_MULTIPLIER = 0.029  # коэффициент для учета роста в
     # процессе сжигания каллорий при ходьбе
     KM_PER_HOUR_TO_M_PER_SEC = 0.278    # константа для перевода значений
-    # из км/ч в м/с
+    # скорости из км/ч в м/с
     CM_IN_M = 100  # константа для перевода сантиметров в метры
 
     def __init__(
@@ -115,7 +115,7 @@ class SportsWalking(Training):
         height: float
     ) -> None:
         super().__init__(action, duration, weight)
-        self.height = height    # добавляется параметр значения роста человека
+        self.height = height    # добавляем параметр значения роста человека
         # для учёта в формуле расчета каллорий
 
     def get_spent_calories(self) -> float:
@@ -136,7 +136,7 @@ class Swimming(Training):
     MEAN_SPEED_INCREASE = 1.1   # константа для смещения значения
     # средней скорости
     MEAN_SPEED_MULTIPLIER = 2  # константа увеличения скорости движения
-    LEN_STEP = Training.LEN_STROKE  # константа для расчета расстояния
+    LEN_STEP = Training.LEN_STROKE  # константа для расчета дистанции
 
     def __init__(
         self,
