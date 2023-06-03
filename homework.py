@@ -49,8 +49,7 @@ class Training:
 
     def get_distance(self) -> float:
         """Получить пройденную дистанцию в км."""
-        distance = self.action * self.LEN_STEP / self.M_IN_KM
-        return distance
+        return self.action * self.LEN_STEP / self.M_IN_KM
 
     def get_mean_speed(self) -> float:
         """Получить среднюю скорость движения."""
@@ -69,11 +68,11 @@ class Training:
         mean_speed = self.get_mean_speed()
         calories = self.get_spent_calories()
         info_message = InfoMessage(
-            self.__class__.__name__,
-            self.duration,
-            distance,
-            mean_speed,
-            calories
+            training_type=self.__class__.__name__,
+            duration=self.duration,
+            distance=distance,
+            speed=mean_speed,
+            calories=calories
         )
         return info_message
 
@@ -153,8 +152,11 @@ class Swimming(Training):
 
     def get_mean_speed(self) -> float:
         """Получить среднюю скорость плавания."""
-        mean_speed = self.length_pool * self.count_pool / \
-            self.M_IN_KM / self.duration
+        mean_speed = (
+            self.length_pool * self.count_pool
+            / self.M_IN_KM
+            / self.duration
+        )
         return mean_speed
 
     def get_spent_calories(self) -> float:
@@ -168,30 +170,28 @@ class Swimming(Training):
         return calories
 
 
+WORKOUT_TYPES = {
+    'SWM': Swimming,
+    'RUN': Running,
+    'WLK': SportsWalking,
+}
+
+
 def read_package(workout_type: str, data: list) -> Training:
     """Прочитать данные полученные от датчиков."""
-    workout_types = {
-        'SWM': Swimming,
-        'RUN': Running,
-        'WLK': SportsWalking,
-    }
-    action = data[0]
-    duration = data[1]
-    weight = data[2]
-
-    if workout_type in workout_types:
+    if workout_type in WORKOUT_TYPES:
         if workout_type == 'SWM':
-            length_pool = data[3]
-            count_pool = data[4]
-            return workout_types[workout_type](action, duration, weight,
+            action, duration, weight, length_pool, count_pool = data
+            return WORKOUT_TYPES[workout_type](action, duration, weight,
                                                length_pool, count_pool)
         elif workout_type == 'RUN':
-            return workout_types[workout_type](action, duration, weight)
+            action, duration, weight = data
+            return WORKOUT_TYPES[workout_type](action, duration, weight)
         elif workout_type == 'WLK':
-            height = data[3]
-            return workout_types[workout_type](action, duration,
+            action, duration, weight, height = data
+            return WORKOUT_TYPES[workout_type](action, duration,
                                                weight, height)
-    return Training(action, duration, weight)
+    return Training(*data)
 
 
 def main(training: Training) -> str:
