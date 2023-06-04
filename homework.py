@@ -179,19 +179,8 @@ WORKOUT_TYPES = {
 
 def read_package(workout_type: str, data: list) -> Training:
     """Прочитать данные полученные от датчиков."""
-    if workout_type in WORKOUT_TYPES:
-        if workout_type == 'SWM':
-            action, duration, weight, length_pool, count_pool = data
-            return WORKOUT_TYPES[workout_type](action, duration, weight,
-                                               length_pool, count_pool)
-        elif workout_type == 'RUN':
-            action, duration, weight = data
-            return WORKOUT_TYPES[workout_type](action, duration, weight)
-        elif workout_type == 'WLK':
-            action, duration, weight, height = data
-            return WORKOUT_TYPES[workout_type](action, duration,
-                                               weight, height)
-    return Training(*data)
+    workout_class = WORKOUT_TYPES.get(workout_type, Training)
+    return workout_class(*data)
 
 
 def main(training: Training) -> str:
